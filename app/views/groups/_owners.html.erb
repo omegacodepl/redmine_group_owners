@@ -1,0 +1,22 @@
+<p><%= link_to l(:label_user_owner), new_group_owners_path(@group), :remote => true, :class => "icon icon-add" %></p>
+
+<% if @group.owners.any? %>
+  <table class="list users">
+    <thead><tr>
+      <th><%= l(:label_owner) %></th>
+      <th style="width:15%"></th>
+    </tr></thead>
+    <tbody>
+    <% @group.owners.sort.each do |user| %>
+        <tr id="owner-<%= user.id %>" class="<%= cycle 'odd', 'even' %>">
+          <td class="name"><%= link_to_user user %></td>
+          <td class="buttons">
+            <%= delete_link group_owner_path(@group, :user_id => user), :remote => true %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>
